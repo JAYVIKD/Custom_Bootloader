@@ -1,9 +1,9 @@
 --cpu Cortex-M7.fp.sp
 "boot_code\startup_stm32f746xx.o"
+"boot_code\boot.o"
 "boot_code\main.o"
 "boot_code\stm32f7xx_it.o"
 "boot_code\stm32f7xx_hal_msp.o"
-"boot_code\boot.o"
 "boot_code\stm32f7xx_hal_cortex.o"
 "boot_code\stm32f7xx_hal_crc.o"
 "boot_code\stm32f7xx_hal_crc_ex.o"

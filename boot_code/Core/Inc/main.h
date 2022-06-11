@@ -57,8 +57,8 @@ void st_printf(char *format, ...);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define button_Pin GPIO_PIN_13
-#define button_GPIO_Port GPIOC
+#define but_Pin GPIO_PIN_13
+#define but_GPIO_Port GPIOC
 #define led1_Pin GPIO_PIN_0
 #define led1_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */

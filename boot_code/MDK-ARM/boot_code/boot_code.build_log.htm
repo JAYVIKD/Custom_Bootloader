@@ -27,10 +27,11 @@ Project File Date:  06/11/2022
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'boot_code'
+assembling startup_stm32f746xx.s...
 compiling main.c...
 ../Core/Inc/boot.h(13): warning:  #1-D: last line of file ends without a newline
   #endif 
-../Core/Src/main.c(76): warning:  #223-D: function "sprintf" declared implicitly
+../Core/Src/main.c(77): warning:  #223-D: function "sprintf" declared implicitly
   		sprintf(str, format ,args);
 ../Core/Src/main.c: 2 warnings, 0 errors
 compiling boot.c...
@@ -39,6 +40,8 @@ compiling boot.c...
 boot.c(39): warning:  #513-D: a value of type "void *" cannot be assigned to an entity of type "void (*)(void)"
   	app_reset_handler = (void*) app_reset_handler_address; 
 boot.c: 2 warnings, 0 errors
+compiling stm32f7xx_it.c...
+compiling stm32f7xx_hal_msp.c...
 linking...
 Program Size: Code=13646 RO-data=1066 RW-data=16 ZI-data=1936  
 FromELF: creating hex file...
@@ -66,7 +69,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

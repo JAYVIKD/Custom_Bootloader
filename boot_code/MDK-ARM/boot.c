@@ -5,7 +5,7 @@ void bootloader_init(){
 	
 	
 	
-	if(HAL_GPIO_ReadPin(button_GPIO_Port, button_Pin) == GPIO_PIN_SET){
+	if(HAL_GPIO_ReadPin(but_GPIO_Port, but_Pin) == GPIO_PIN_SET){
 				// Bootloader code if button is pressed
 				
 				st_printf("BOOTLOADER ACTIVE\r\n");
