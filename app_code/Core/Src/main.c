@@ -94,8 +94,10 @@ int main(void)
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 	HAL_GPIO_WritePin(Led2_GPIO_Port, Led2_Pin, GPIO_PIN_SET);
+	HAL_Delay(100);
+	HAL_UART_Transmit(&huart3,"In the Application Code\r\n", 26, HAL_MAX_DELAY);
   /* USER CODE END 2 */
-
+	
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -103,8 +105,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		HAL_Delay(100);
-		HAL_UART_Transmit(&huart3, "Hello\r\n", 8, HAL_MAX_DELAY);
+		
 
   }
   /* USER CODE END 3 */

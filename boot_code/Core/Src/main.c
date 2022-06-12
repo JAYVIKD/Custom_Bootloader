@@ -46,9 +46,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 CRC_HandleTypeDef hcrc;
-
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
+
 
 /* USER CODE BEGIN PV */
 
@@ -80,7 +80,9 @@ void st_printf(char *format,...){
 	#endif
 }
 
-
+void st_scanf( uint8_t *Buf, uint8_t len){
+		HAL_UART_Receive( &huart3, Buf , len , HAL_MAX_DELAY);
+}
 
 /*void jump_user_app(){
 	//pointerr to the app reset handler
@@ -134,17 +136,18 @@ int main(void)
   MX_CRC_Init();
   /* USER CODE BEGIN 2 */
 	bootloader_init();
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
+  {	
     /* USER CODE END WHILE */
-
+		
     /* USER CODE BEGIN 3 */
 		//HAL_UART_Transmit(&huart2 , (uint8_t*)boot_msg , sizeof(boot_msg), 1000);
-		
+
   }
   /* USER CODE END 3 */
 }

@@ -54,6 +54,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 void st_printf(char *format, ...);
+void st_scanf( uint8_t *Buf, uint8_t len);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -62,7 +63,8 @@ void st_printf(char *format, ...);
 #define led1_Pin GPIO_PIN_0
 #define led1_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
-
+extern UART_HandleTypeDef huart2;
+extern UART_HandleTypeDef huart3;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

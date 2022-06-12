@@ -27,23 +27,18 @@ Project File Date:  06/11/2022
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'boot_code'
-assembling startup_stm32f746xx.s...
-compiling main.c...
-../Core/Inc/boot.h(13): warning:  #1-D: last line of file ends without a newline
-  #endif 
-../Core/Src/main.c(77): warning:  #223-D: function "sprintf" declared implicitly
-  		sprintf(str, format ,args);
-../Core/Src/main.c: 2 warnings, 0 errors
 compiling boot.c...
-../Core/Inc/boot.h(13): warning:  #1-D: last line of file ends without a newline
+../Core/Inc/boot.h(52): warning:  #1-D: last line of file ends without a newline
   #endif 
-boot.c(39): warning:  #513-D: a value of type "void *" cannot be assigned to an entity of type "void (*)(void)"
+boot.c(42): warning:  #513-D: a value of type "void *" cannot be assigned to an entity of type "void (*)(void)"
   	app_reset_handler = (void*) app_reset_handler_address; 
-boot.c: 2 warnings, 0 errors
-compiling stm32f7xx_it.c...
-compiling stm32f7xx_hal_msp.c...
+boot.c(51): warning:  #223-D: function "memset" declared implicitly
+  	memset(buffer,0,200);
+boot.c(49): warning:  #550-D: variable "rec_len"  was set but never used
+  	uint32_t rec_len;
+boot.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=13646 RO-data=1066 RW-data=16 ZI-data=1936  
+Program Size: Code=14862 RO-data=1066 RW-data=16 ZI-data=2136  
 FromELF: creating hex file...
 "boot_code\boot_code.axf" - 0 Error(s), 4 Warning(s).
 
@@ -69,7 +64,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
