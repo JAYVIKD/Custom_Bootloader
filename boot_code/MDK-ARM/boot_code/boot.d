@@ -34,3 +34,6 @@ boot_code\boot.o: ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_pwr_ex.h
 boot_code\boot.o: ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h
 boot_code\boot.o: ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h
 boot_code\boot.o: ../Core/Inc/main.h
+boot_code\boot.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+boot_code\boot.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+boot_code\boot.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

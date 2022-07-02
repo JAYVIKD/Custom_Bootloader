@@ -2,7 +2,22 @@
 
 
 uint8_t buffer[200];
-// checks for 
+//check for GPIO pin status 
+
+
+void bl_printf(char *format,...){
+	#ifdef DEBUG_EN 
+		char str[80];
+	
+		va_list args;
+		va_start(args, format);
+		strcat(format, "\r\n");
+		sprintf(str, format ,args);
+		HAL_UART_Transmit(REC_Port , (uint8_t*)str , strlen(str), HAL_MAX_DELAY);
+		va_end(args);
+	#endif
+}
+
 void bootloader_init(){
 	
 	
@@ -10,14 +25,14 @@ void bootloader_init(){
 	if(HAL_GPIO_ReadPin(but_GPIO_Port, but_Pin) == GPIO_PIN_SET){
 				// Bootloader code if button is pressed
 				
-				st_printf("BOOTLOADER ACTIVE\r\n");
-		st_printf("Press '0R' for command menu\r\n:");
+				bl_printf("BOOTLOADER ACTIVE\r\n");
+				bl_printf("Press '0R' for command menu\r\n:");
 				bootloader_boot_code();
 		}
 	else{
 				// jump to app code if the button is not pressed
 				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-				st_printf("JUMPING TO APP CODE\r\n");
+				bl_printf("JUMPING TO APP CODE\r\n");
 				//read Uart data
 				bootloader_jump_user_app();
 	}
@@ -39,7 +54,7 @@ void bootloader_jump_user_app(){
 	SCB->VTOR = FLASHAXI_BASE | VEC_OFFSET;
 	// Jump to the reset handler
 	uint32_t app_reset_handler_address= *(volatile uint32_t *) (FLASH_SECTOR2_BASE_ADDRESS+4);
-	app_reset_handler = (void*) app_reset_handler_address; 
+	app_reset_handler =  (void*)app_reset_handler_address; 
 	app_reset_handler();
 }
 
@@ -56,8 +71,8 @@ void bootloader_boot_code(){
 		switch(buffer[1]){
 		
 			case CMD_VER: 
-										st_printf("\r\n");
-										st_printf(Version_BLC);
+										bl_printf("\r\n");
+										bl_printf(Version_BLC);
 										break;
 			case CMD_GET_HELP: 
 										bootloader_Get_Help();
@@ -92,7 +107,7 @@ void bootloader_boot_code(){
 			
 			
 			default : 		
-										st_printf("Invalid Command\r\n:");
+										bl_printf("Invalid Command\r\n:");
 										break;
 		}
 	
@@ -103,19 +118,19 @@ void bootloader_boot_code(){
 void bootloader_Get_Help(){
 		
 		
-		st_printf("\r\nList of Commands:\r\n");
-		st_printf(CMD_VER_USE);
-		st_printf(CMD_GET_HELP_USE);
-		st_printf(CMD_GET_CID_USE);
-		st_printf(CMD_GET_RDP_STATUS_USE);
-		st_printf(CMD_GO_TO_ADDR_USE);
-		st_printf(CMD_FLASH_ERASE_USE);
-		st_printf(CMD_MEM_WRITE_USE);
-		st_printf(CMD_ENDIS_RW_PROTECT_USE);
-		st_printf(CMD_MEM_READ_USE);
-		st_printf(CMD_READ_SECTOR_STATUS_USE);
-		st_printf(CMD_OTP_READ_USE);
-		st_printf("\r\n:");
+		bl_printf("\r\nList of Commands:\r\n");
+		bl_printf(CMD_VER_USE);
+		bl_printf(CMD_GET_HELP_USE);
+		bl_printf(CMD_GET_CID_USE);
+		bl_printf(CMD_GET_RDP_STATUS_USE);
+		bl_printf(CMD_GO_TO_ADDR_USE);
+		bl_printf(CMD_FLASH_ERASE_USE);
+		bl_printf(CMD_MEM_WRITE_USE);
+		bl_printf(CMD_ENDIS_RW_PROTECT_USE);
+		bl_printf(CMD_MEM_READ_USE);
+		bl_printf(CMD_READ_SECTOR_STATUS_USE);
+		bl_printf(CMD_OTP_READ_USE);
+		bl_printf("\r\n:");
 			
 }
 
@@ -153,4 +168,16 @@ void bootloader_Read_Sector_Status(uint8_t* buffer){
 
 void bootloader_OTP_Read(uint8_t* buffer){
 
+}
+
+void bootloader_ACK(uint8_t follow_len){
+			uint8_t ack_buf[2];
+			ack_buf[0] = BL_ACK;
+			ack_buf[1] = follow_len;
+			HAL_UART_Transmit(REC_Port, ack_buf, 2, HAL_MAX_DELAY);
+}
+
+void bootloader_NACK(void){
+
+		HAL_UART_Transmit(REC_Port, (uint8_t *)BL_NACK , 1, HAL_MAX_DELAY);
 }

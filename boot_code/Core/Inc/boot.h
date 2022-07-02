@@ -1,8 +1,15 @@
 #ifndef __BOOT_H_
 #define __BOOT_H_
 
-// Version Info
+// includes 
+#include "stm32f7xx_hal.h"
+#include "main.h"
+#include<stdarg.h>
+#include<string.h>
+#include<stdio.h>
 
+
+// Version Info
 #define Version_BLC  "Jayvik Desai's Bootloader V1.0"
 
 
@@ -33,15 +40,17 @@
 
 
 
-#include "stm32f7xx_hal.h"
-#include "main.h"
+
 #define DEBUG_EN 
 #define FLASH_SECTOR2_BASE_ADDRESS 0x08010000u
 #define VEC_OFFSET 0x10000
-
+#define BL_ACK 0xa5
+#define BL_NACK 0x7f
 #define REC_Port &huart3
 #define versio
 
+// function prototype 
+void bl_printf(char *format,...);
 void bootloader_jump_user_app(void);
 void bootloader_boot_code(void);
 void bootloader_init(void);
@@ -55,4 +64,6 @@ void bootloader_Endis_RW_Protect(uint8_t* buffer);
 void bootloader_Mem_Read(uint8_t* buffer);
 void bootloader_Read_Sector_Status(uint8_t* buffer);
 void bootloader_OTP_Read(uint8_t* buffer);
+void bootloader_ACK(uint8_t follow_len);
+void bootloader_NACK(void);
 #endif 

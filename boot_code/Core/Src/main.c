@@ -24,6 +24,7 @@
 #include<stdarg.h>
 #include<string.h>
 #include "boot.h"
+#include<stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
