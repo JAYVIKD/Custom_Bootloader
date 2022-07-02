@@ -65,6 +65,7 @@ void st_scanf( uint8_t *Buf, uint8_t len);
 /* USER CODE BEGIN Private defines */
 extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart3;
+extern CRC_HandleTypeDef hcrc;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

@@ -38,7 +38,8 @@
 #define CMD_OTP_READ_USE								"%s: Command to read all the OTP contents\r\n", CMD_OTP_READ
 #define CMD_OTP_READ 										0x5b
 
-
+#define CRC_Success 0
+#define CRC_Fail 1
 
 
 #define DEBUG_EN 
@@ -47,23 +48,25 @@
 #define BL_ACK 0xa5
 #define BL_NACK 0x7f
 #define REC_Port &huart3
-#define versio
+
 
 // function prototype 
-void bl_printf(char *format,...);
-void bootloader_jump_user_app(void);
-void bootloader_boot_code(void);
-void bootloader_init(void);
-void bootloader_Get_Help(void);
-void bootloader_Get_Cid(uint8_t* buffer);
-void bootloader_Get_RDP_Status(uint8_t* buffer);
-void bootloader_Go_To_ADDR(uint8_t* buffer);
-void bootloader_Flash_Erase(uint8_t* buffer);
-void bootloader_Mem_Write(uint8_t* buffer);
-void bootloader_Endis_RW_Protect(uint8_t* buffer);
-void bootloader_Mem_Read(uint8_t* buffer);
-void bootloader_Read_Sector_Status(uint8_t* buffer);
-void bootloader_OTP_Read(uint8_t* buffer);
-void bootloader_ACK(uint8_t follow_len);
-void bootloader_NACK(void);
+void 		bl_printf(char *format,...);
+void 		bootloader_jump_user_app(void);
+void 		bootloader_boot_code(void);
+void 		bootloader_init(void);
+void 		bootloader_Get_Help(void);
+void		bootloader_Get_Cid(uint8_t* buffer);
+void 		bootloader_Get_RDP_Status(uint8_t* buffer);
+void 		bootloader_Go_To_ADDR(uint8_t* buffer);
+void 		bootloader_Flash_Erase(uint8_t* buffer);
+void 		bootloader_Mem_Write(uint8_t* buffer);
+void 		bootloader_Endis_RW_Protect(uint8_t* buffer);
+void 		bootloader_Mem_Read(uint8_t* buffer);
+void 		bootloader_Read_Sector_Status(uint8_t* buffer);
+void 		bootloader_OTP_Read(uint8_t* buffer);
+void 		bootloader_ACK(uint8_t follow_len);
+void 		bootloader_NACK(void);
+uint8_t bootloader_verify_CRC(uint8_t *pdata , uint32_t len , uint32_t CRC_host);
+
 #endif 

@@ -107,7 +107,7 @@ void bootloader_boot_code(){
 			
 			
 			default : 		
-										bl_printf("Invalid Command\r\n:");
+										bl_printf("\r\nInvalid Command\r\n:");
 										break;
 		}
 	
@@ -180,4 +180,19 @@ void bootloader_ACK(uint8_t follow_len){
 void bootloader_NACK(void){
 
 		HAL_UART_Transmit(REC_Port, (uint8_t *)BL_NACK , 1, HAL_MAX_DELAY);
+}
+
+uint8_t bootloader_verify_CRC(uint8_t *pdata , uint32_t len , uint32_t CRC_host){
+		uint32_t CRC_val = 0xff;
+	
+		for (uint32_t i=0 ; i<len ; i++){
+			uint32_t idata = pdata[i];
+			CRC_val = HAL_CRC_Accumulate(&hcrc, &idata , 1);
+		}
+		
+		if(CRC_val == CRC_host){
+				return CRC_Success;
+		}
+		
+		return CRC_Fail;
 }
