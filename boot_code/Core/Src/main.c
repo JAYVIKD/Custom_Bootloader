@@ -47,9 +47,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 CRC_HandleTypeDef hcrc;
+
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
-
 
 /* USER CODE BEGIN PV */
 
@@ -136,19 +136,22 @@ int main(void)
   MX_USART2_UART_Init();
   MX_CRC_Init();
   /* USER CODE BEGIN 2 */
-	bootloader_init();
 	
-  /* USER CODE END 2 */
 
+		bootloader_init();
+  /* USER CODE END 2 */
+	
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {	
     /* USER CODE END WHILE */
+		st_printf("in the Boot main code");
+		
 		
     /* USER CODE BEGIN 3 */
-		//HAL_UART_Transmit(&huart2 , (uint8_t*)boot_msg , sizeof(boot_msg), 1000);
-
+		
+	
   }
   /* USER CODE END 3 */
 }
@@ -226,7 +229,7 @@ static void MX_CRC_Init(void)
   hcrc.Init.DefaultInitValueUse = DEFAULT_INIT_VALUE_ENABLE;
   hcrc.Init.InputDataInversionMode = CRC_INPUTDATA_INVERSION_NONE;
   hcrc.Init.OutputDataInversionMode = CRC_OUTPUTDATA_INVERSION_DISABLE;
-  hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
+  hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_WORDS;
   if (HAL_CRC_Init(&hcrc) != HAL_OK)
   {
     Error_Handler();

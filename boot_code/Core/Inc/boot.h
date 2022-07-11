@@ -10,7 +10,7 @@
 
 
 // Version Info
-#define Version_BLC  "Jayvik Desai's Bootloader V1.0"
+
 
 
 //Command Defination
@@ -47,14 +47,16 @@
 #define VEC_OFFSET 0x10000
 #define BL_ACK 0xa5
 #define BL_NACK 0x7f
-#define REC_Port &huart3
-
+#define REC_Port &huart2
+#define ADDR_VALID 0x00
+#define ADDR_INVALID 0x01
 
 // function prototype 
 void 		bl_printf(char *format,...);
 void 		bootloader_jump_user_app(void);
 void 		bootloader_boot_code(void);
 void 		bootloader_init(void);
+void 		bootloader_Get_Version(void);
 void 		bootloader_Get_Help(void);
 void		bootloader_Get_Cid(uint8_t* buffer);
 void 		bootloader_Get_RDP_Status(uint8_t* buffer);
@@ -69,4 +71,12 @@ void 		bootloader_ACK(uint8_t follow_len);
 void 		bootloader_NACK(void);
 uint8_t bootloader_verify_CRC(uint8_t *pdata , uint32_t len , uint32_t CRC_host);
 
+
+
+// helper fucntions 
+
+uint16_t get_MCU_chip_ID(void); 
+uint8_t get_RDP_status(void);
+uint8_t check_valid_address(uint32_t address);
+uint8_t erase_flash_sector( uint8_t sector , uint8_t no_of_sector);
 #endif 

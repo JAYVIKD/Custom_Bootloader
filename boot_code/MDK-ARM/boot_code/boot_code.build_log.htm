@@ -22,27 +22,33 @@ Dialog DLL:      TCM.DLL V1.48.0.0
  
 <h2>Project:</h2>
 D:\arm\Bootloader_v1\boot_code\MDK-ARM\boot_code.uvprojx
-Project File Date:  06/11/2022
+Project File Date:  07/03/2022
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'boot_code'
 compiling main.c...
-../Core/Inc/boot.h(72): warning:  #1-D: last line of file ends without a newline
+../Core/Inc/boot.h(82): warning:  #1-D: last line of file ends without a newline
   #endif 
 ../Core/Src/main.c: 1 warning, 0 errors
 compiling boot.c...
-../Core/Inc/boot.h(72): warning:  #1-D: last line of file ends without a newline
+../Core/Inc/boot.h(82): warning:  #1-D: last line of file ends without a newline
   #endif 
-boot.c(57): warning:  #513-D: a value of type "void *" cannot be assigned to an entity of type "void (*)(void)"
+boot.c(70): warning:  #513-D: a value of type "void *" cannot be assigned to an entity of type "void (*)(void)"
   	app_reset_handler =  (void*)app_reset_handler_address; 
-boot.c(64): warning:  #550-D: variable "rec_len"  was set but never used
-  	uint32_t rec_len;
-boot.c: 3 warnings, 0 errors
+boot.c(230): warning:  #144-D: a value of type "void *" cannot be used to initialize an entity of type "void (*)(void)"
+  						void (*jump_to_address) (void) = (void *)jump_address;
+boot.c(251): warning:  #177-D: variable "sector_no"  was declared but never referenced
+  		uint8_t sector_no = buffer[2];
+boot.c(252): warning:  #177-D: variable "no_of_sector"  was declared but never referenced
+  		uint8_t no_of_sector = buffer[3];
+boot.c(346): warning:  #1-D: last line of file ends without a newline
+  }
+boot.c: 6 warnings, 0 errors
 linking...
-Program Size: Code=14942 RO-data=1066 RW-data=16 ZI-data=2136  
+Program Size: Code=15886 RO-data=1066 RW-data=28 ZI-data=2132  
 FromELF: creating hex file...
-"boot_code\boot_code.axf" - 0 Error(s), 4 Warning(s).
+"boot_code\boot_code.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 

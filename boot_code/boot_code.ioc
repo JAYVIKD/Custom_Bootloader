@@ -1,6 +1,8 @@
 #MicroXplorer Configuration settings - do not modify
 CORTEX_M7.IPParameters=default_mode_Activation
 CORTEX_M7.default_mode_Activation=1
+CRC.IPParameters=InputDataFormat
+CRC.InputDataFormat=CRC_INPUTDATA_FORMAT_WORDS
 File.Version=6
 GPIO.groupedBy=Group By Peripherals
 KeepUserPlacement=false
