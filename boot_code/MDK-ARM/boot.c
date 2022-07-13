@@ -256,6 +256,7 @@ void bootloader_Flash_Erase(uint8_t* buffer){
 				
 				if( ret == SUCCESS) {
 						HAL_UART_Transmit(REC_Port, &success , 1, HAL_MAX_DELAY);
+						
 				}
 				else {
 						HAL_UART_Transmit(REC_Port, &fail , 1, HAL_MAX_DELAY);
@@ -269,7 +270,39 @@ void bootloader_Flash_Erase(uint8_t* buffer){
 }
 
 void bootloader_Mem_Write(uint8_t* buffer){
-
+		uint32_t command_packet_length = buffer[0]+1;
+		uint32_t host_crc = *((uint32_t * ) (buffer+command_packet_length - 4) ) ;
+		uint32_t base_add = *((uint32_t * ) (&buffer[2])) ; 
+		uint32_t payload_len = buffer[6];
+		uint8_t success = SUCCESS;
+		uint8_t fail = ERROR;
+		HAL_StatusTypeDef ret; 
+		if( ! bootloader_verify_CRC( &buffer[0] , command_packet_length - 4 , host_crc)){
+				bootloader_ACK(1);
+				if( check_valid_address(base_add)){
+								HAL_FLASH_Unlock();
+								for( uint32_t i = 0 ; i < payload_len ; i++){
+									ret = HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE,base_add+i,buffer[i+7]);
+								}
+								HAL_FLASH_Lock();
+								
+										if(ret == SUCCESS){
+												HAL_UART_Transmit(REC_Port, &success , 1, HAL_MAX_DELAY);
+										}
+										else {
+											HAL_UART_Transmit(REC_Port, &fail , 1, HAL_MAX_DELAY);
+										}
+								
+				}
+				else{
+							HAL_UART_Transmit(REC_Port, &fail , 1, HAL_MAX_DELAY);
+				}
+					
+		}
+		
+		else {
+			bootloader_NACK();
+		}
 }
 
 void bootloader_Endis_RW_Protect(uint8_t* buffer){

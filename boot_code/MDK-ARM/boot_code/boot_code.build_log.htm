@@ -27,10 +27,6 @@ Project File Date:  07/03/2022
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'boot_code'
-compiling main.c...
-../Core/Inc/boot.h(82): warning:  #1-D: last line of file ends without a newline
-  #endif 
-../Core/Src/main.c: 1 warning, 0 errors
 compiling boot.c...
 ../Core/Inc/boot.h(82): warning:  #1-D: last line of file ends without a newline
   #endif 
@@ -42,13 +38,11 @@ boot.c(251): warning:  #177-D: variable "sector_no"  was declared but never refe
   		uint8_t sector_no = buffer[2];
 boot.c(252): warning:  #177-D: variable "no_of_sector"  was declared but never referenced
   		uint8_t no_of_sector = buffer[3];
-boot.c(346): warning:  #1-D: last line of file ends without a newline
-  }
-boot.c: 6 warnings, 0 errors
+boot.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=15886 RO-data=1066 RW-data=28 ZI-data=2132  
+Program Size: Code=16486 RO-data=1066 RW-data=28 ZI-data=2164  
 FromELF: creating hex file...
-"boot_code\boot_code.axf" - 0 Error(s), 7 Warning(s).
+"boot_code\boot_code.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
