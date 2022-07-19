@@ -79,4 +79,13 @@ uint16_t get_MCU_chip_ID(void);
 uint8_t get_RDP_status(void);
 uint8_t check_valid_address(uint32_t address);
 uint8_t erase_flash_sector( uint8_t sector , uint8_t no_of_sector);
+
+
+// structure definations
+typedef struct MetaD{
+		uint32_t data1;
+		uint32_t data2;
+		uint32_t data3;
+		uint32_t data4;
+} MetaData;
 #endif 

@@ -45,7 +45,7 @@
   */
 
 #include "stm32f7xx.h"
-#define VEC_OFFSET 0x10000
+#define VEC_OFFSET 0x10010
 #if !defined  (HSE_VALUE) 
   #define HSE_VALUE    ((uint32_t)25000000) /*!< Default value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
@@ -154,7 +154,7 @@ void SystemInit(void)
 #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
   SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
 #endif
-//SCB->VTOR = FLASHAXI_BASE | VEC_OFFSET;
+SCB->VTOR = FLASHAXI_BASE | VEC_OFFSET;
   /* Configure the Vector Table location -------------------------------------*/
 #if defined(USER_VECT_TAB_ADDRESS)
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
