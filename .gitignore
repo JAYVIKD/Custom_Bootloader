@@ -1,2 +1,5 @@
 BootloaderProjectSTM32-master/
-boot_code\MDK-ARM\boot_code/
+boot_code/MDK-ARM/boot_code/
+app_code/
+.mxproject
+*.ioc
