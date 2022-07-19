@@ -49,13 +49,22 @@ __heap_limit
 
                 PRESERVE8
                 THUMB
+ 
+
+				
+
 
 
 ; Vector Table Mapped to Address 0 at Reset
                 AREA    RESET, DATA, READONLY
-                EXPORT  __Vectors
+                EXPORT  __MetaD
+				EXPORT  __Vectors
                 EXPORT  __Vectors_End
                 EXPORT  __Vectors_Size
+
+
+
+
 
 __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     Reset_Handler              ; Reset Handler
@@ -177,6 +186,13 @@ __Vectors_End
 
 __Vectors_Size  EQU  __Vectors_End - __Vectors
 
+__MetaD			DCD 	0x00000000					;meta
+				DCD		0x00000000
+				DCD 	0x00000010					;meta
+				DCD		0x00000020
+				DCD		0x00000030
+				DCD 	0x00000040
+					
                 AREA    |.text|, CODE, READONLY
 
 ; Reset handler

@@ -1,8 +1,9 @@
 #include"boot.h"
 
-
+//global 
 uint8_t buffer[200];
 uint8_t Version_BLC  = 0x1;
+volatile MetaData MD;
 //check for GPIO pin status 
 uint8_t supported_command[] = {
 														CMD_VER,
@@ -18,13 +19,17 @@ uint8_t supported_command[] = {
 														CMD_OTP_READ
 };
 
+
+
+
+
 void bl_printf(char *format,...){
 	#ifdef DEBUG_EN 
 		char str[80];
-	
+		memset(str , 0 , 80); 
 		va_list args;
 		va_start(args, format);
-		strcat(format, "\r\n");
+		//strcat(format, "\r\n");
 		sprintf(str, format ,args);
 		HAL_UART_Transmit(REC_Port , (uint8_t*)str , strlen(str), HAL_MAX_DELAY);
 		va_end(args);
@@ -45,7 +50,7 @@ void bootloader_init(){
 	else{
 				// jump to app code if the button is not pressed
 				HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
-				bl_printf("JUMPING TO APP CODE\r\n");
+				bl_printf("JUMPING TO APP CODE%d\r\n");
 				//read Uart data
 				bootloader_jump_user_app();
 	}
@@ -59,12 +64,19 @@ void bootloader_init(){
 */
 void bootloader_jump_user_app(){
 	//pointerr to the app reset handler
+	char str[80];
+	MD.data1= *(volatile uint32_t *) (FLASH_SECTOR2_BASE_ADDRESS+ 0x1d0) ;
+	MD.data2= *(volatile uint32_t *) (FLASH_SECTOR2_BASE_ADDRESS+ 0x1d4) ;
+	MD.data3= *(volatile uint32_t *) (FLASH_SECTOR2_BASE_ADDRESS+ 0x1d8) ;
+	MD.data4= *(volatile uint32_t *) (FLASH_SECTOR2_BASE_ADDRESS+ 0x1dC) ;
+	sprintf(str, "META:%x,%x,%x,%x",MD.data1,MD.data2,MD.data3,MD.data4);
+	bl_printf(str);
 	void (*app_reset_handler)(void);
-	st_printf("Jumping to user app\r\n" , FLASH_SECTOR_2);
+	bl_printf("Jumping to user app\r\n" , FLASH_SECTOR_2);
 	// set the MSP value
 	uint32_t MSP_val= *(volatile uint32_t *) FLASH_SECTOR2_BASE_ADDRESS;
 	__set_MSP(MSP_val);
-	SCB->VTOR = FLASHAXI_BASE | VEC_OFFSET;
+	SCB->VTOR = FLASH_SECTOR2_BASE_ADDRESS+16;
 	// Jump to the reset handler
 	uint32_t app_reset_handler_address= *(volatile uint32_t *) (FLASH_SECTOR2_BASE_ADDRESS+4);
 	app_reset_handler =  (void*)app_reset_handler_address; 
